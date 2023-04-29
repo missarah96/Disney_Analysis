@@ -27,20 +27,19 @@ def main(disney_characters, disney_director, disney_movies_total_gross, disney_r
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
         
-        
     #reads disney-characters file
     disney_characters = pd.read_csv(disney_characters, parse_dates=['release_date'])
     disney_characters.replace('\n','', regex=True, inplace=True)
     disney_characters.replace('', np.nan, inplace=True)
     disney_characters['release_date'].mask(disney_characters['movie_title'] == 'Aladdin', '1992-11-01', inplace=True)
-    disney_characters.to_csv(os.path.join(out_dir, "disney-characters.csv"), date_format='%Y-%m', index=False)
+    disney_characters.to_csv(os.path.join(out_dir, "disney_characters.csv"), date_format='%Y-%m', index=False)
         
         
     #reads disney_director file
     disney_director = pd.read_csv(disney_director)
     disney_director.rename(columns={"name":"movie_title"}, inplace=True)
     disney_director.drop(disney_director.index[[2,37]], inplace=True) #director name for the two Fantasia movies is vague
-    disney_director.to_csv(os.path.join(out_dir, "disney-director.csv"), index=False)
+    disney_director.to_csv(os.path.join(out_dir, "disney_director.csv"), index=False)
     
     
     #reads disney_movies_total_gross file
@@ -59,7 +58,7 @@ def main(disney_characters, disney_director, disney_movies_total_gross, disney_r
     disney_movies_total_gross.loc[252, 'movie_title']  = '101 Dalmatians (b)'
     disney_movies_total_gross.loc[386, 'movie_title'] = 'Freaky Friday (b)'
     disney_movies_total_gross.loc[364, 'movie_title'] = 'Bad Company (b)'
-    disney_movies_total_gross.to_csv(os.path.join(out_dir, "disney-movies-total-gross.csv"), date_format='%Y-%m', index=False)
+    disney_movies_total_gross.to_csv(os.path.join(out_dir, "disney_movies_total_gross.csv"), date_format='%Y-%m', index=False)
     
     
     #reads disney_revenue_1991_2016 file
@@ -70,13 +69,13 @@ def main(disney_characters, disney_director, disney_movies_total_gross, disney_r
         "Disney Consumer Products[NI 2]": "Disney Consumer Products",
         "Disney Interactive[NI 3][Rev 1]": "Disney Interactive"
         }, inplace=True)
-    disney_revenue_1991_2016.to_csv(os.path.join(out_dir, "disney-revenue-1991-2016.csv"), index=False)
+    disney_revenue_1991_2016.to_csv(os.path.join(out_dir, "disney_revenue_1991_2016.csv"), index=False)
     
     
     #reads disney-voice-actors file
     disney_voice_actors = pd.read_csv(disney_voice_actors)
     disney_voice_actors.rename(columns={"movie":"movie_title"}, inplace=True)
-    disney_voice_actors.to_csv(os.path.join(out_dir, "disney-voice-actors.csv"), index=False)
+    disney_voice_actors.to_csv(os.path.join(out_dir, "disney_voice_actors.csv"), index=False)
 
     
 if __name__ == "__main__":
